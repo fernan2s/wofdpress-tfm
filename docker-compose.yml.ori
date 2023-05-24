@@ -15,8 +15,6 @@ services:
       MYSQL_PASSWORD: wordpress
     volumes:
       - db-data:/var/lib/mysql
-    ports:
-      - 3306:3306
 
   # Wordpress
   wp:

@@ -5,26 +5,20 @@ services:
 
   # MySQL database
   db:
-    image: mariadb
-    restart: unless-stopped
-    container_name: tdd-plugin-db
+    image: fernan2/mariadb_wp_unit:v1
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: wordpress
     volumes:
-      - db-data:/var/lib/mysql
+      - db-data-mariadb:/var/lib/mysql
     ports:
       - 3306:3306
 
   # Wordpress
   wp:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    container_name: tdd-plugin-app
+    image: fernan2/wp_unit:v1
     environment:
       WORDPRESS_DB_HOST: tdd-plugin-db
       WORDPRESS_DB_USER: wordpress
@@ -33,7 +27,7 @@ services:
       WORDPRESS_DEBUG: 1
     volumes:
       - wp-data:/var/www/html
-      - ./:/var/www/html/wp-content/plugins/wordpress-tdd-plugin
+#      - ./:/var/www/html/wp-content/plugins/wordpress-tdd-plugin
     ports:
       - 80:80
     depends_on:
@@ -41,6 +35,6 @@ services:
 
 # Persist DB and WordPress data across containers
 volumes:
-  db-data:
+  db-data-mariadb:
   wp-data:
 
