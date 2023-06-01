@@ -38,7 +38,7 @@ spec:
             - name: WORDPRESS_DEBUG
               value: "1"
               #          image: fernan2/wp_unit:v1
-          image: wp-img-base-kube
+          image: fernan2/wp-img-base-kube
           name: tdd-plugin
           ports:
             - containerPort: 80
