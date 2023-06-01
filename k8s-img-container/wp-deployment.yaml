@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.28.0 (c4137012e)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: wp
+  name: wp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: wp
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.28.0 (c4137012e)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/kubernetes-net-wp: "true"
+        io.kompose.service: wp
+    spec:
+      containers:
+        - env:
+            - name: WORDPRESS_DB_HOST
+              value: db-svc
+            - name: WORDPRESS_DB_NAME
+              value: wordpress
+            - name: WORDPRESS_DB_PASSWORD
+              value: wordpress
+            - name: WORDPRESS_DB_USER
+              value: wordpress
+            - name: WORDPRESS_DEBUG
+              value: "1"
+              #          image: fernan2/wp_unit:v1
+          image: wp-img-base-kube
+          name: tdd-plugin
+          ports:
+            - containerPort: 80
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/www/html
+              name: wp-data
+      restartPolicy: Always
+      volumes:
+        - name: wp-data
+          persistentVolumeClaim:
+            claimName: wp-data
+status: {}
