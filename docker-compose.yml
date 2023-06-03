@@ -7,7 +7,7 @@ services:
   db:
     image: mariadb
     restart: unless-stopped
-    container_name: tdd-plugin-db
+    container_name: mariadb-wp
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: wordpress
@@ -23,10 +23,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: test-wp
     restart: unless-stopped
-    container_name: tdd-plugin-app
+    container_name: wp-test
     environment:
-      WORDPRESS_DB_HOST: tdd-plugin-db
+      WORDPRESS_DB_HOST: mariadb-wp
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress
