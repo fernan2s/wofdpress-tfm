@@ -37,8 +37,14 @@ spec:
               value: wordpress
             - name: WORDPRESS_DEBUG
               value: "1"
+<<<<<<< HEAD
           image: fernan2/test-wp
           name: wp-test
+=======
+              #          image: fernan2/wp_unit:v1
+          image: fernan2/wp-img-base-kube
+          name: tdd-plugin
+>>>>>>> ab2786f14bb4c52f116144fd868762686a22aba3
           ports:
             - containerPort: 80
           resources: {}
