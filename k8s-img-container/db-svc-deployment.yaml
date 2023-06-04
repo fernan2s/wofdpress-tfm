@@ -37,8 +37,8 @@ spec:
               value: wordpress
             - name: WORDPRESS_DB_HOST
               value: db-svc
-          image: bd-ima-base-kube
-          name: tdd-plugin-db
+          image: fernan2/test-bd-wp
+          name: mariadb-wp
           ports:
             - containerPort: 3306
           resources: {}
